@@ -9,6 +9,7 @@ type cst =
   Int of I
  |Float of F
  |Bool of B
+ |Var of string
 
  type stmt =  
   Set of string * expr

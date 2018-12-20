@@ -18,18 +18,22 @@
 %token WHILE REPEAT BREAK STOPREPEAT
 %token PRINT
 
-%left INT FLOAT BOOL
-%left PLUS MINUS
 %nonassoc NOT
-%nonassoc MINOR BIGGER EQUALS AND OR EQMINOR EQBIGGER DIFFERENT
+%left PLUS MINUS
 %left TIMES DIV
+%nonassoc MINOR BIGGER EQUALS AND OR EQMINOR EQBIGGER DIFFERENT
 
 %start main
 
 %type <Ast.expr> main
 %%
 main:
-    s = stmt EOF { s }
+    s = stmts EOF { s }
+    ;
+
+stmts:
+    i= stmt {[i]}
+    |l= stmts i =stmt {i::l}
     ;
 
 const:
@@ -39,7 +43,7 @@ const:
     ;
 
 stmt:
-    SET string = ID EQ e = expr { Set (string, e)}
+    SET id = ID EQ e = expr { Set (id, e)}
    | e = expr {Eval e}
    | PRINT e = expr { Print e}
    | IF e = expr THEN s = stmt END { If (e,s)}
@@ -48,9 +52,10 @@ stmt:
 
 expr:
     c= const {Cst c}
+    | id = ID {Var id}
     | e1=expr o=op e2=expr {Binop (op, e1, e2)}
-    | MINUS e1=expr { Unop (uNeg,e1)}
-    | NOT e1=expr { Unop (uNot,e1)}
+    | MINUS e=expr { Unop (uNeg,e)}
+    | NOT e=expr { Unop (uNot,e)}
     ;
 
 %inline op:
