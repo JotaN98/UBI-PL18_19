@@ -5,7 +5,18 @@
 %token <int> INT 
 %token <float> FLOAT 
 %token <bool> BOOL 
-%token PLUS MINUS TIMES DIV EOF NOT MINOR BIGGER EQUALS AND OR EQMINOR EQBIGGER DIFFERENT
+%token ID
+%token EOF 
+%token PLUS MINUS TIMES DIV 
+%token NOT 
+%token MINOR BIGGER EQUALS EQMINOR EQBIGGER DIFFERENT
+%token AND OR
+%token EQ
+
+%token SET
+%token IF THEN END ELSE
+%token WHILE REPEAT BREAK STOPREPEAT
+%token PRINT
 
 %left INT FLOAT BOOL
 %left PLUS MINUS
@@ -27,12 +38,19 @@ const:
     |b = BOOL {B b}
     ;
 
+stmt:
+    SET string = ID EQ e = expr { Set (string, e)}
+    | e = expr {Eval e}
+    | PRINT e = expr { Print e}
+    | IF e = expr THEN s = stmt END { If (e,s)}
+    | IF e = expr THEN s1 = stmt END ELSE s2 = stmt END { IfElse (e,s1,s2)}
+    | WHILE e = expr REPEAT s = stmt STOPREPEAT {While (e,s)}
+
 expr:
     c= const {Cst c}
     | e1=expr o=op e2=expr {Binop (op, e1, e2)}
     | MINUS e1=expr { Unop (uNeg,e1)}
     | NOT e1=expr { Unop (uNot,e1)}
-
     ;
 
 %inline op:
@@ -49,4 +67,5 @@ expr:
     |EQBIGGER {Eqbigger}
     |DIFFERENT {Different}
     ;
+
 (*menhir --interpret --interpret-show-cst parser.mly < test.in*)
