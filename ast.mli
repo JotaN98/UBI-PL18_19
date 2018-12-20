@@ -1,9 +1,6 @@
-(* Sintaxe abstrata*)
-type unop = uNeg | uNot
-
 type binop = Add | Sub | Mul | Div
  | Minor | Bigger | Equals | And | Or 
- | Eqminor | Eqbigger | Different (**)
+ | Eqminor | Eqbigger | Different
 
 type cst = 
   Int of I
@@ -24,6 +21,6 @@ type cst =
 
 type expr =
   Cst of cst
- |Unop of unop * expr
+ (*|Unot of expr*)
  |Binop of binop * expr * expr
  

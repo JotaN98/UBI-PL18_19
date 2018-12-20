@@ -4,7 +4,8 @@
 
 %token <int> INT 
 %token <float> FLOAT 
-%token <bool> BOOL 
+(*%token <bool> BOOL*) 
+
 %token ID
 %token EOF 
 %token PLUS MINUS TIMES DIV 
@@ -18,10 +19,9 @@
 %token WHILE REPEAT BREAK STOPREPEAT
 %token PRINT
 
-%nonassoc NOT
 %left PLUS MINUS
 %left TIMES DIV
-%nonassoc MINOR BIGGER EQUALS AND OR EQMINOR EQBIGGER DIFFERENT
+%nonassoc NEG
 
 %start main
 
@@ -54,8 +54,8 @@ expr:
     c= const {Cst c}
     | id = ID {Var id}
     | e1=expr o=op e2=expr {Binop (op, e1, e2)}
-    | MINUS e=expr { Unop (uNeg,e)}
-    | NOT e=expr { Unop (uNot,e)}
+    | MINUS e=expr %prec NEG {Binop (Sub, Cst 0, e)}
+  (*| NOT e=expr {Unot e}*)
     ;
 
 %inline op:
