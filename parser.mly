@@ -29,7 +29,7 @@
 %type <Ast.expr> main
 %%
 main:
-    e = expr EOF { e }
+    s = stmt EOF { s }
     ;
 
 const:
@@ -40,11 +40,11 @@ const:
 
 stmt:
     SET string = ID EQ e = expr { Set (string, e)}
-    | e = expr {Eval e}
-    | PRINT e = expr { Print e}
-    | IF e = expr THEN s = stmt END { If (e,s)}
-    | IF e = expr THEN s1 = stmt END ELSE s2 = stmt END { IfElse (e,s1,s2)}
-    | WHILE e = expr REPEAT s = stmt STOPREPEAT {While (e,s)}
+   | e = expr {Eval e}
+   | PRINT e = expr { Print e}
+   | IF e = expr THEN s = stmt END { If (e,s)}
+   | IF e = expr THEN s1 = stmt ELSE s2 = stmt END { IfElse (e,s1,s2)}
+   | WHILE e = expr REPEAT s = stmt STOPREPEAT {While (e,s)}
 
 expr:
     c= const {Cst c}
