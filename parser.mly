@@ -19,6 +19,12 @@
 %token WHILE REPEAT BREAK STOPREPEAT
 %token PRINT
 
+(*https://github.com/DarkGV/PortugueseCompiler*)
+(*
+%left THEN
+%left ELSE
+*)
+%left AND OR MINOR BIGGER EQUALS EQMINOR EQBIGGER DIFFERENT
 %left PLUS MINUS
 %left TIMES DIV
 %nonassoc NEG
