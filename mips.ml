@@ -26,7 +26,9 @@ let gp : register = "$gp"
 let zero : register = "$zero"
 
 type label = string
+
 type 'a address = formatter -> 'a -> unit
+
 let alab : label address = fun fmt  (s : label) -> fprintf fmt "%s" s
 let areg : (int * register) address = fun fmt (x, y) -> fprintf fmt "%i(%s)" x y
 type 'a operand = formatter -> 'a -> unit
