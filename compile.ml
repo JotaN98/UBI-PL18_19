@@ -3,16 +3,30 @@ open Mips
 open Ast
 
 (* Exceção por lançar quando uma variável (local ou global) é mal utilizada *)
-exception VarUndef of string
+exception ErrorCompiling of string
 
 (* As variáveis globais estão arquivadas numa HashTable *)
 let (vars : (string, unit) Hashtbl.t) = Hashtbl.create 32
 
-(* Utiliza-se  uma tabela associativa cujas chaves são as variáveis locais
-   (strings) cujo valor associado é a posição da variável relativamente a $fp (em bytes) *)
-module StrMap = Map.Make(String)
-
+let rec expr_to_string = function
 (* Compilação de uma expressão *)
+  Cst i ->
+  begin
+  match i with
+    Int i -> string_of_int i
+    | Var i -> i (* NÂO ESQUECER QUE ISTO ESTA NO CST e não no expr*)
+  end
+  | Binop (o, e1, e2) ->
+    begin
+      let a = expr_to_string e1 in
+      let b = expr_to_string e2 in
+      match o with
+      Add -> (a ^ "+" ^ y)
+      |Sub -> (a ^ "-" ^ y)
+      (*|Times -> (a ^ "*" ^b)
+      |Div -> (a ^ "/" ^b)*)
+    end
+  
 let compile_expr =
   (* Função recursiva local de compile_expr utilizada para gerar o código
      máquina da árvore de sintaxe  abstracta associada a um valor de tipo 
