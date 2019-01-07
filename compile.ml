@@ -9,7 +9,7 @@ exception VarUndef of string
 let frame_size = ref 0
 
 (* As variáveis globais estão arquivadas numa HashTable *)
-let (genv : (string, unit) Hashtbl.t) = Hashtbl.create 17
+let (vars : (string, unit) Hashtbl.t) = Hashtbl.create 32
 
 (* Utiliza-se  uma tabela associativa cujas chaves são as variáveis locais
    (strings) cujo valor associado é a posição da variável relativamente a $fp (em bytes) *)
@@ -23,7 +23,7 @@ let compile_expr =
      no topo da pilha *)
   let rec comprec env next = function
     | Cst i ->
-        move (oi i) (oreg v0) (* movq (imm i) (reg rax) ++  //x86_64*)
+        li t0 i ++ li a0 i
     | Var x ->
         nop (* POR COMPLETAR *)
     | Binop (o, e1, e2)->
@@ -59,16 +59,8 @@ let compile_program p ofile =
   in
   let f = open_out ofile in
   let fmt = formatter_of_out_channel f in
-  X86_64.print_program fmt p;
+  Mips.print_program fmt p;
   (*  "flush" do buffer para garantir que tudo fica escrito antes do fecho
        deste  *)
   fprintf fmt "@?";
   close_out f
-
-let frame_size = ref 0
-
-let (genv : (string, unit) Hashtbl.t) = Hashtbl.create 17
-
-module StrMap = Map.Make(String)
-
-Q
