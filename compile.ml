@@ -5,9 +5,6 @@ open Ast
 (* Exceção por lançar quando uma variável (local ou global) é mal utilizada *)
 exception VarUndef of string
 
-(* Tamanho em byte da frame (cada variável local ocupa 8 bytes) *)
-let frame_size = ref 0
-
 (* As variáveis globais estão arquivadas numa HashTable *)
 let (vars : (string, unit) Hashtbl.t) = Hashtbl.create 32
 
