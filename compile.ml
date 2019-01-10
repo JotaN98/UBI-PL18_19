@@ -8,7 +8,7 @@ exception ErrorCompiling of string
 (* As variáveis globais estão arquivadas numa HashTable *)
 let (vars : (string, unit) Hashtbl.t) = Hashtbl.create 32
 
-let rec expr_to_string = function
+let rec expr_of_string = function
 (* Compilação de uma expressão *)
   Cst i ->
   begin
@@ -27,7 +27,20 @@ let rec expr_to_string = function
       |Div -> (a ^ "/" ^b)*)
     end
   
-let compile_expr =
+let rec compile_expr contxType = function
+    Cst c ->
+    begin
+        match c with
+        Int i -> li t0 i ++ li a0 i
+        |Var v ->
+          if Hashtbl.mem variables i then
+            lw t0 alab i ++ lw a0 alab i
+          else raise (Compile_Error ("Undefined variable '"^i^"'."))
+    end
+    |Binop (o, e1, e2) ->
+      begin
+        match 
+      end
   (* Função recursiva local de compile_expr utilizada para gerar o código
      máquina da árvore de sintaxe  abstracta associada a um valor de tipo 
      Ast.expr ; na sequência da execução deste código, o valor deve estar
