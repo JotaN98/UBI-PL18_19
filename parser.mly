@@ -19,7 +19,6 @@
 %token WHILE REPEAT BREAK STOPREPEAT*)
 %token PRINT
 
-(*https://github.com/DarkGV/PortugueseCompiler*)
 (*
 %left THEN
 %left ELSE
