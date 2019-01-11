@@ -1,12 +1,12 @@
-%{ 
-    Open Ast 
+%{
+  open Ast
 %}
 
 %token <int> INT 
 (*%token <float> FLOAT 
 %token <bool> BOOL*) 
 
-%token ID
+(*%token ID*)
 %token EOF 
 %token PLUS MINUS TIMES DIV 
 (*%token NOT 
@@ -44,15 +44,16 @@ stmts:
 const:
     i = INT {I i}
     (*|f = FLOAT {F f}
-    |b = BOOL {B b}*)
-    | id = ID {Var id}
+    |b = BOOL {B b}
+    | id = ID {Var id}*)
     ;
 
 stmt:
-    SET id = ID EQ e = expr { Set (id, e)}
-   | e = expr {Eval e}
+    e = expr {Eval e}
    | PRINT e = expr { Print e}
-   (*| IF e = expr THEN s = stmt END { If (e,s)}
+   (*
+       SET id = ID EQ e = expr { Set (id, e)}
+   | IF e = expr THEN s = stmt END { If (e,s)}
    | IF e = expr THEN s1 = stmt ELSE s2 = stmt END { IfElse (e,s1,s2)}
    | WHILE e = expr REPEAT s = stmt STOPREPEAT {While (e,s)}*)
     ;

@@ -1,0 +1,11 @@
+ast.cmi :
+compile.cmo : mips.cmi ast.cmi
+compile.cmx : mips.cmx ast.cmi
+lexer.cmo : parser.cmi
+lexer.cmx : parser.cmx
+mips.cmo : mips.cmi
+mips.cmx : mips.cmi
+mips.cmi :
+parser.cmo : ast.cmi parser.cmi
+parser.cmx : ast.cmi parser.cmi
+parser.cmi : ast.cmi

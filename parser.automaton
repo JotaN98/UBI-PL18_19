@@ -1,0 +1,174 @@
+State 0:
+main' -> . main [ # ]
+-- On PRINT shift to state 1
+-- On INT shift to state 2
+-- On stmts shift to state 13
+-- On stmt shift to state 17
+-- On main shift to state 18
+-- On expr shift to state 16
+-- On const shift to state 6
+
+State 1:
+stmt -> PRINT . expr [ PRINT INT EOF ]
+-- On INT shift to state 2
+-- On expr shift to state 3
+-- On const shift to state 6
+
+State 2:
+const -> INT . [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On TIMES reduce production const -> INT 
+-- On PRINT reduce production const -> INT 
+-- On PLUS reduce production const -> INT 
+-- On MINUS reduce production const -> INT 
+-- On INT reduce production const -> INT 
+-- On EOF reduce production const -> INT 
+-- On DIV reduce production const -> INT 
+
+State 3:
+expr -> expr . PLUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . MINUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . TIMES expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . DIV expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+stmt -> PRINT expr . [ PRINT INT EOF ]
+-- On TIMES shift to state 4
+-- On PLUS shift to state 7
+-- On MINUS shift to state 11
+-- On DIV shift to state 9
+-- On PRINT reduce production stmt -> PRINT expr 
+-- On INT reduce production stmt -> PRINT expr 
+-- On EOF reduce production stmt -> PRINT expr 
+
+State 4:
+expr -> expr TIMES . expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On INT shift to state 2
+-- On expr shift to state 5
+-- On const shift to state 6
+
+State 5:
+expr -> expr . PLUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . MINUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . TIMES expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr TIMES expr . [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . DIV expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On TIMES reduce production expr -> expr TIMES expr 
+-- On PRINT reduce production expr -> expr TIMES expr 
+-- On PLUS reduce production expr -> expr TIMES expr 
+-- On MINUS reduce production expr -> expr TIMES expr 
+-- On INT reduce production expr -> expr TIMES expr 
+-- On EOF reduce production expr -> expr TIMES expr 
+-- On DIV reduce production expr -> expr TIMES expr 
+
+State 6:
+expr -> const . [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On TIMES reduce production expr -> const 
+-- On PRINT reduce production expr -> const 
+-- On PLUS reduce production expr -> const 
+-- On MINUS reduce production expr -> const 
+-- On INT reduce production expr -> const 
+-- On EOF reduce production expr -> const 
+-- On DIV reduce production expr -> const 
+
+State 7:
+expr -> expr PLUS . expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On INT shift to state 2
+-- On expr shift to state 8
+-- On const shift to state 6
+
+State 8:
+expr -> expr . PLUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr PLUS expr . [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . MINUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . TIMES expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . DIV expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On TIMES shift to state 4
+-- On DIV shift to state 9
+-- On PRINT reduce production expr -> expr PLUS expr 
+-- On PLUS reduce production expr -> expr PLUS expr 
+-- On MINUS reduce production expr -> expr PLUS expr 
+-- On INT reduce production expr -> expr PLUS expr 
+-- On EOF reduce production expr -> expr PLUS expr 
+
+State 9:
+expr -> expr DIV . expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On INT shift to state 2
+-- On expr shift to state 10
+-- On const shift to state 6
+
+State 10:
+expr -> expr . PLUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . MINUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . TIMES expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . DIV expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr DIV expr . [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On TIMES reduce production expr -> expr DIV expr 
+-- On PRINT reduce production expr -> expr DIV expr 
+-- On PLUS reduce production expr -> expr DIV expr 
+-- On MINUS reduce production expr -> expr DIV expr 
+-- On INT reduce production expr -> expr DIV expr 
+-- On EOF reduce production expr -> expr DIV expr 
+-- On DIV reduce production expr -> expr DIV expr 
+
+State 11:
+expr -> expr MINUS . expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On INT shift to state 2
+-- On expr shift to state 12
+-- On const shift to state 6
+
+State 12:
+expr -> expr . PLUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . MINUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr MINUS expr . [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . TIMES expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . DIV expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+-- On TIMES shift to state 4
+-- On DIV shift to state 9
+-- On PRINT reduce production expr -> expr MINUS expr 
+-- On PLUS reduce production expr -> expr MINUS expr 
+-- On MINUS reduce production expr -> expr MINUS expr 
+-- On INT reduce production expr -> expr MINUS expr 
+-- On EOF reduce production expr -> expr MINUS expr 
+
+State 13:
+main -> stmts . EOF [ # ]
+stmts -> stmts . stmt [ PRINT INT EOF ]
+-- On PRINT shift to state 1
+-- On INT shift to state 2
+-- On EOF shift to state 14
+-- On stmt shift to state 15
+-- On expr shift to state 16
+-- On const shift to state 6
+
+State 14:
+main -> stmts EOF . [ # ]
+-- On # reduce production main -> stmts EOF 
+
+State 15:
+stmts -> stmts stmt . [ PRINT INT EOF ]
+-- On PRINT reduce production stmts -> stmts stmt 
+-- On INT reduce production stmts -> stmts stmt 
+-- On EOF reduce production stmts -> stmts stmt 
+
+State 16:
+expr -> expr . PLUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . MINUS expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . TIMES expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+expr -> expr . DIV expr [ TIMES PRINT PLUS MINUS INT EOF DIV ]
+stmt -> expr . [ PRINT INT EOF ]
+-- On TIMES shift to state 4
+-- On PLUS shift to state 7
+-- On MINUS shift to state 11
+-- On DIV shift to state 9
+-- On PRINT reduce production stmt -> expr 
+-- On INT reduce production stmt -> expr 
+-- On EOF reduce production stmt -> expr 
+
+State 17:
+stmts -> stmt . [ PRINT INT EOF ]
+-- On PRINT reduce production stmts -> stmt 
+-- On INT reduce production stmts -> stmt 
+-- On EOF reduce production stmts -> stmt 
+
+State 18:
+main' -> main . [ # ]
+-- On # accept main
+
