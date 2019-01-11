@@ -5,7 +5,7 @@ type cst =
   | Var of string *)
 
 type binop =
-   Add
+  | Add
   | Sub
   | Mul 
   | Div
