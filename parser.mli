@@ -11,4 +11,4 @@ type token =
   | DIV
 
 
-val main: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.expr)
+val pro: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.pro)

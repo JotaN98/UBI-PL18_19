@@ -28,21 +28,21 @@
 %left TIMES DIV
 (*%nonassoc NEG*)
 
-%start main
+%start pro
 
-%type <Ast.expr> main
+%type <Ast.pro> pro
 %%
-main:
-    s = stmts EOF { s }
+pro:
+    s = stmts EOF { List.rev s }
     ;
 
 stmts:
-    i= stmt {[i]}
-    |l= stmts i =stmt {i::l}
+    s= stmt {[s]}
+    | s1= stmts s2=stmt {s2::s1}
     ;
 
 const:
-    i = INT {I i}
+    i = INT {Int i}
     (*|f = FLOAT {F f}
     |b = BOOL {B b}
     | id = ID {Var id}*)
@@ -60,7 +60,7 @@ stmt:
 
 expr:
     c= const {Cst c}
-    | e1=expr o=op e2=expr {Binop (op, e1, e2)}
+    | e1=expr o=op e2=expr {Binop (o, e1, e2)}
    (*| MINUS e=expr %prec NEG {Binop (Sub, Cst 0, e)}
     | NOT e=expr {Unot e}*)
     ;

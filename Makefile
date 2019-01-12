@@ -5,8 +5,6 @@ FLAGS=
 
 all: $(BIN)
 	./$(BIN) test.exp
-	gcc -g test.s
-	./a.out
 
 $(BIN):$(CMO)
 	ocamlc $(FLAGS) -o $(BIN) $(CMO)

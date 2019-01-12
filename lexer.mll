@@ -1,5 +1,9 @@
 {
+  (*COnverte o ficheiro para tokens*)
+  open Lexing
   open Parser
+
+  exception ErrorLexing of string
 
   let kwd_tbl = ["print", PRINT;](*
    "if", IF; "then", THEN; "end", END; "else" ELSE
@@ -18,9 +22,9 @@ let integer = ['0'-'9']+
 let digit = ['0' - '9']
 let space = [' ' '\t']
 let letter = ['a' - 'z' 'A'-'Z']
-let ident = letter (letter | digit)*
+(*let ident = letter (letter | digit)*
 
-  (*
+  
   | ident as id { id_or_kwd id}
   | float as f {FLOAT (float_of_string f)}
   | '=' {EQ} 
@@ -35,12 +39,12 @@ let ident = letter (letter | digit)*
   | "||" {OR}*)
 
 rule token = parse 
-  | '\n'    { newline lexbuf; token lexbuf }
+  | "\n" { newline lexbuf; token lexbuf }
   | space+ { token lexbuf }
   | integer as i {INT (int_of_string i)}
-  | '+' {PLUS}
-  | '-' {MINUS}
-  | '*' {TIMES}
-  | '/' {DIV}
+  | "+" {PLUS}
+  | "-" {MINUS}
+  | "*" {TIMES}
+  | "/" {DIV}
   | eof {EOF} 
-  | _ as c  { raise (Lexing_error c) }
+  | _ as c {raise (let x = (Printf.sprintf "%c" c) in (ErrorLexing ("Unkown character " ^ x)))}

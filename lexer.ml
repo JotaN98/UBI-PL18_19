@@ -1,6 +1,10 @@
 # 1 "lexer.mll"
  
+  (*COnverte o ficheiro para tokens*)
+  open Lexing
   open Parser
+
+  exception ErrorLexing of string
 
   let kwd_tbl = ["print", PRINT;](*
    "if", IF; "then", THEN; "end", END; "else" ELSE
@@ -14,7 +18,7 @@
     lexbuf.lex_curr_p <-
       { pos with pos_lnum = pos.pos_lnum + 1; pos_bol = pos.pos_cnum }
 
-# 18 "lexer.ml"
+# 22 "lexer.ml"
 let __ocaml_lex_tables = {
   Lexing.lex_base =
    "\000\000\247\255\248\255\249\255\250\255\251\255\252\255\010\000\
@@ -114,59 +118,59 @@ let rec token lexbuf =
 and __ocaml_lex_token_rec lexbuf __ocaml_lex_state =
   match Lexing.engine __ocaml_lex_tables __ocaml_lex_state lexbuf with
       | 0 ->
-# 38 "lexer.mll"
-            ( newline lexbuf; token lexbuf )
-# 120 "lexer.ml"
+# 42 "lexer.mll"
+         ( newline lexbuf; token lexbuf )
+# 124 "lexer.ml"
 
   | 1 ->
-# 39 "lexer.mll"
+# 43 "lexer.mll"
            ( token lexbuf )
-# 125 "lexer.ml"
+# 129 "lexer.ml"
 
   | 2 ->
 let
-# 40 "lexer.mll"
+# 44 "lexer.mll"
                i
-# 131 "lexer.ml"
-= Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
-# 40 "lexer.mll"
-                 (INT (int_of_string i))
 # 135 "lexer.ml"
+= Lexing.sub_lexeme lexbuf lexbuf.Lexing.lex_start_pos lexbuf.Lexing.lex_curr_pos in
+# 44 "lexer.mll"
+                 (INT (int_of_string i))
+# 139 "lexer.ml"
 
   | 3 ->
-# 41 "lexer.mll"
+# 45 "lexer.mll"
         (PLUS)
-# 140 "lexer.ml"
+# 144 "lexer.ml"
 
   | 4 ->
-# 42 "lexer.mll"
+# 46 "lexer.mll"
         (MINUS)
-# 145 "lexer.ml"
+# 149 "lexer.ml"
 
   | 5 ->
-# 43 "lexer.mll"
+# 47 "lexer.mll"
         (TIMES)
-# 150 "lexer.ml"
+# 154 "lexer.ml"
 
   | 6 ->
-# 44 "lexer.mll"
+# 48 "lexer.mll"
         (DIV)
-# 155 "lexer.ml"
+# 159 "lexer.ml"
 
   | 7 ->
-# 45 "lexer.mll"
+# 49 "lexer.mll"
         (EOF)
-# 160 "lexer.ml"
+# 164 "lexer.ml"
 
   | 8 ->
 let
-# 46 "lexer.mll"
+# 50 "lexer.mll"
          c
-# 166 "lexer.ml"
-= Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
-# 46 "lexer.mll"
-            ( raise (Lexing_error c) )
 # 170 "lexer.ml"
+= Lexing.sub_lexeme_char lexbuf lexbuf.Lexing.lex_start_pos in
+# 50 "lexer.mll"
+           (raise (let x = (Printf.sprintf "%c" c) in (ErrorLexing ("Unkown character " ^ x))))
+# 174 "lexer.ml"
 
   | __ocaml_lex_state -> lexbuf.Lexing.refill_buff lexbuf;
       __ocaml_lex_token_rec lexbuf __ocaml_lex_state
