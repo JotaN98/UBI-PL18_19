@@ -15,43 +15,25 @@ let (vars : (string, unit) Hashtbl.t) = Hashtbl.create 32
    (cadeias de caracteres) e onde o valor associado é a posição
    relativamente  a $fp (em bytes) *)
    module StrMap = Map.Make(String)
-
-(*let rec expr_of_string = function
-(* Compilação de uma expressão *)
-  Cst i ->
-  begin
-  match i with
-    Int i -> string_of_int i
-    (*| Var i -> i *)
-  end
-  | Binop (o, e1, e2) ->
-    begin
-      let a = expr_of_string e1 in
-      let b = expr_of_string e2 in
-      match o with
-      Add -> (a ^ "+" ^ y)
-      |Sub -> (a ^ "-" ^ y)
-      (*|Times -> (a ^ "*" ^b)
-      |Div -> (a ^ "/" ^b)*)
-    end*)
   
 let rec compile_expr = function
   Cst c ->
   begin
       match c with
-      Int i -> li t0 i ++
-      push t0
-      (*| Var v ->
+      Int i -> 
+        li t0 i ++
+        push t0
+      | Var v ->
       begin
         if Hashtbl.mem vars v then
-          lw t0 v ++
+          lw t0 alab v ++
           push t0
-        else raise (Compile_Error ("Undefined variable '"^i^"'."))
-      end*)
+        else raise (ErrorCompiling ("Undefined variable '"^v^"'."))
+      end
   end
   |Binop (Add, e1, e2) -> (*Adição*)
-    (compile_expr e1) ++
-    (compile_expr e2) ++
+    compile_expr e1 ++
+    compile_expr e2 ++
     pop t0 ++
     pop t1 ++
     add t0 t0 oreg t1 ++
@@ -68,8 +50,17 @@ let rec compile_expr = function
 
 (* Compilação de uma instrução *)
 let compile_stmt = function
-  (*| Set (x, e) ->
-      nop  *)
+  | Set (v, e) ->
+    if not (Hashtbl.mem vars v) then begin
+      Hashtbl.replace vars v ();
+      compile_expr e ++
+      pop t0 ++
+      move v t0
+    end
+    else begin
+     raise (ErrorCompiling ("Already defined variable '"^v^"'."));
+     nop
+    end
   | Print e ->
     compile_expr e ++
     pop t0 ++

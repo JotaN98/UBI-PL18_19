@@ -3,6 +3,8 @@ compile.cmo : mips.cmi ast.cmi
 compile.cmx : mips.cmx ast.cmi
 lexer.cmo : parser.cmi
 lexer.cmx : parser.cmx
+main.cmo : parser.cmi lexer.cmo compile.cmo
+main.cmx : parser.cmx lexer.cmx compile.cmx
 mips.cmo : mips.cmi
 mips.cmx : mips.cmi
 mips.cmi :

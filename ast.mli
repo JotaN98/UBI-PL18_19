@@ -1,5 +1,6 @@
 type cst = 
-  | Int of int
+   Int of int
+  | Var of string
 
 type binop = 
   Add 

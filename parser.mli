@@ -7,6 +7,8 @@ type token =
   | PLUS
   | MINUS
   | INT of (int)
+  | ID of (string)
+  | EQ
   | EOF
   | DIV
 
