@@ -36,7 +36,7 @@ let ident = letter (letter | digit)*
   | "||" {OR}*)
 
 rule token = parse 
-  | "\n" { newline lexbuf; token lexbuf }
+  | '\n' { newline lexbuf; token lexbuf }
   | ident as id { id_or_kwd id}
   | space+ { token lexbuf }
   | integer as i {INT (int_of_string i)}

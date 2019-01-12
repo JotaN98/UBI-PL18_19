@@ -36,7 +36,7 @@ let () =
 	 try
 	let p = Parser.pro Lexer.token buf in
 	close_in f;
-
+	compile_program p "ofile.s";
 	with
 		| Lexer.ErrorLexing c ->
 	(* Erro léxico. Recupera-se a posição absoluta e converte-se para número 
