@@ -30,7 +30,7 @@ stmts:
     | s1= stmts COLON s2=stmt {s2::s1}
     ;
 
-const:
+typ:
     i = INT {Int i}
     | id = ID {Var id}
     ;
@@ -41,7 +41,7 @@ stmt:
    ;
 
 expr:
-    c= const {Cst c}
+    t= typ {Typ t}
     | e1=expr o=op e2=expr {Binop (o, e1, e2)}
     ;
 

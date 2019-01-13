@@ -1,4 +1,4 @@
-type cst = 
+type typ = 
    Int of int
   | Var of string
 
@@ -9,7 +9,7 @@ type binop =
   | Div
 
 type expr =
-  Cst of cst
+  Typ of typ
  | Binop of binop * expr * expr
  
  type stmt =  

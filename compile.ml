@@ -17,9 +17,9 @@ let (vars : (string, unit) Hashtbl.t) = Hashtbl.create 32
    module StrMap = Map.Make(String)
   
 let rec compile_expr = function
-  Cst c ->
+  Typ t ->
   begin
-      match c with
+      match t with
       Int i -> 
         comment ("storing int")++
         li t0 i ++
@@ -68,13 +68,13 @@ let rec compile_expr = function
 
 (* Compilação de uma instrução *)
 let compile_stmt = function
-  | Set (v, e) ->
+  | Set (v, e) -> (* Definir e redefinir uma variavél*)
     Hashtbl.replace vars v ();
     comment ("setting") ++
     compile_expr e ++
     pop t0 ++
     sw t0 alab v
-  | Print e ->
+  | Print e -> (*Imprimir*)
     comment ("printing")++
     compile_expr e ++
     pop t0 ++
