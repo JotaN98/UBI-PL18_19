@@ -2,13 +2,9 @@ State 0:
 pro' -> . pro [ # ]
 -- On SET shift to state 1
 -- On PRINT shift to state 16
--- On INT shift to state 4
--- On ID shift to state 5
 -- On stmts shift to state 18
--- On stmt shift to state 23
--- On pro shift to state 24
--- On expr shift to state 22
--- On const shift to state 9
+-- On stmt shift to state 22
+-- On pro shift to state 23
 
 State 1:
 stmt -> SET . ID EQ expr [ EOF COLON ]
@@ -179,11 +175,7 @@ State 20:
 stmts -> stmts COLON . stmt [ EOF COLON ]
 -- On SET shift to state 1
 -- On PRINT shift to state 16
--- On INT shift to state 4
--- On ID shift to state 5
 -- On stmt shift to state 21
--- On expr shift to state 22
--- On const shift to state 9
 
 State 21:
 stmts -> stmts COLON stmt . [ EOF COLON ]
@@ -191,24 +183,11 @@ stmts -> stmts COLON stmt . [ EOF COLON ]
 -- On COLON reduce production stmts -> stmts COLON stmt 
 
 State 22:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
-stmt -> expr . [ EOF COLON ]
--- On TIMES shift to state 7
--- On PLUS shift to state 10
--- On MINUS shift to state 14
--- On DIV shift to state 12
--- On EOF reduce production stmt -> expr 
--- On COLON reduce production stmt -> expr 
-
-State 23:
 stmts -> stmt . [ EOF COLON ]
 -- On EOF reduce production stmts -> stmt 
 -- On COLON reduce production stmts -> stmt 
 
-State 24:
+State 23:
 pro' -> pro . [ # ]
 -- On # accept pro
 

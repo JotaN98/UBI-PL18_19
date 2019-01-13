@@ -37,7 +37,6 @@ const:
 
 stmt:
     SET id = ID EQ e = expr { Set (id, e)}
-   | e = expr {Eval e}
    | PRINT e = expr { Print e}
    ;
 

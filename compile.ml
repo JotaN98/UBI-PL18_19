@@ -73,10 +73,7 @@ let compile_stmt = function
     comment ("setting") ++
     compile_expr e ++
     pop t0 ++
-    sw t0 alab v 
-  | Eval e ->
-    comment ("evaluating")++
-    compile_expr e
+    sw t0 alab v
   | Print e ->
     comment ("printing")++
     compile_expr e ++

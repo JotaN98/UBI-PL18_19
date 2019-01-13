@@ -14,7 +14,6 @@ type expr =
  
  type stmt =  
   Set of string * expr
-  | Eval of expr
   | Print of expr
 
 and pro = stmt list
