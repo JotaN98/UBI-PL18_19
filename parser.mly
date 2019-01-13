@@ -8,14 +8,14 @@
 %token EOF
 %token COLON 
 %token PLUS MINUS
-(*%token TIMES DIV*) 
+%token TIMES DIV 
 %token EQ
 
 %token SET
 %token PRINT
 
 %left PLUS MINUS
-(*%left TIMES DIV*)
+%left TIMES DIV
 
 %start pro
 
@@ -49,6 +49,6 @@ expr:
 %inline op:
     PLUS {Add}
     |MINUS {Sub}
-    (*|TIMES {Mul}
-    |DIV {Div}*)
+    |TIMES {Mul}
+    |DIV {Div}
     ;

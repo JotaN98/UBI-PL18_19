@@ -21,9 +21,6 @@ let space = [' ' '\t']
 let letter = ['a' - 'z' 'A'-'Z']
 let ident = letter (letter | digit)*
 
-  (*| "*" {TIMES}
-  | "/" {DIV}*)
-
 rule token = parse 
   | '\n' { newline lexbuf; token lexbuf }
   | ident as id { id_or_kwd id}
@@ -32,6 +29,8 @@ rule token = parse
   | "=" {EQ} 
   | "+" {PLUS}
   | "-" {MINUS}
+  | "*" {TIMES}
+  | "/" {DIV}
   | "," {COLON}
   | eof {EOF} 
   | _ as c {raise (let x = (Printf.sprintf "%c" c) in (ErrorLexing ("Unkown character " ^ x)))}

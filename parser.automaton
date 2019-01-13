@@ -1,13 +1,13 @@
 State 0:
 pro' -> . pro [ # ]
 -- On SET shift to state 1
--- On PRINT shift to state 12
+-- On PRINT shift to state 16
 -- On INT shift to state 4
 -- On ID shift to state 5
--- On stmts shift to state 14
--- On stmt shift to state 19
--- On pro shift to state 20
--- On expr shift to state 18
+-- On stmts shift to state 18
+-- On stmt shift to state 23
+-- On pro shift to state 24
+-- On expr shift to state 22
 -- On const shift to state 9
 
 State 1:
@@ -26,123 +26,189 @@ stmt -> SET ID EQ . expr [ EOF COLON ]
 -- On const shift to state 9
 
 State 4:
-const -> INT . [ PLUS MINUS EOF COLON ]
+const -> INT . [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES reduce production const -> INT 
 -- On PLUS reduce production const -> INT 
 -- On MINUS reduce production const -> INT 
 -- On EOF reduce production const -> INT 
+-- On DIV reduce production const -> INT 
 -- On COLON reduce production const -> INT 
 
 State 5:
-const -> ID . [ PLUS MINUS EOF COLON ]
+const -> ID . [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES reduce production const -> ID 
 -- On PLUS reduce production const -> ID 
 -- On MINUS reduce production const -> ID 
 -- On EOF reduce production const -> ID 
+-- On DIV reduce production const -> ID 
 -- On COLON reduce production const -> ID 
 
 State 6:
-expr -> expr . PLUS expr [ PLUS MINUS EOF COLON ]
-expr -> expr . MINUS expr [ PLUS MINUS EOF COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
 stmt -> SET ID EQ expr . [ EOF COLON ]
--- On PLUS shift to state 7
--- On MINUS shift to state 10
+-- On TIMES shift to state 7
+-- On PLUS shift to state 10
+-- On MINUS shift to state 14
+-- On DIV shift to state 12
 -- On EOF reduce production stmt -> SET ID EQ expr 
 -- On COLON reduce production stmt -> SET ID EQ expr 
 
 State 7:
-expr -> expr PLUS . expr [ PLUS MINUS EOF COLON ]
+expr -> expr TIMES . expr [ TIMES PLUS MINUS EOF DIV COLON ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On expr shift to state 8
 -- On const shift to state 9
 
 State 8:
-expr -> expr . PLUS expr [ PLUS MINUS EOF COLON ]
-expr -> expr PLUS expr . [ PLUS MINUS EOF COLON ]
-expr -> expr . MINUS expr [ PLUS MINUS EOF COLON ]
--- On PLUS reduce production expr -> expr PLUS expr 
--- On MINUS reduce production expr -> expr PLUS expr 
--- On EOF reduce production expr -> expr PLUS expr 
--- On COLON reduce production expr -> expr PLUS expr 
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr TIMES expr . [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES reduce production expr -> expr TIMES expr 
+-- On PLUS reduce production expr -> expr TIMES expr 
+-- On MINUS reduce production expr -> expr TIMES expr 
+-- On EOF reduce production expr -> expr TIMES expr 
+-- On DIV reduce production expr -> expr TIMES expr 
+-- On COLON reduce production expr -> expr TIMES expr 
 
 State 9:
-expr -> const . [ PLUS MINUS EOF COLON ]
+expr -> const . [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES reduce production expr -> const 
 -- On PLUS reduce production expr -> const 
 -- On MINUS reduce production expr -> const 
 -- On EOF reduce production expr -> const 
+-- On DIV reduce production expr -> const 
 -- On COLON reduce production expr -> const 
 
 State 10:
-expr -> expr MINUS . expr [ PLUS MINUS EOF COLON ]
+expr -> expr PLUS . expr [ TIMES PLUS MINUS EOF DIV COLON ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On expr shift to state 11
 -- On const shift to state 9
 
 State 11:
-expr -> expr . PLUS expr [ PLUS MINUS EOF COLON ]
-expr -> expr . MINUS expr [ PLUS MINUS EOF COLON ]
-expr -> expr MINUS expr . [ PLUS MINUS EOF COLON ]
--- On PLUS reduce production expr -> expr MINUS expr 
--- On MINUS reduce production expr -> expr MINUS expr 
--- On EOF reduce production expr -> expr MINUS expr 
--- On COLON reduce production expr -> expr MINUS expr 
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr PLUS expr . [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES shift to state 7
+-- On DIV shift to state 12
+-- On PLUS reduce production expr -> expr PLUS expr 
+-- On MINUS reduce production expr -> expr PLUS expr 
+-- On EOF reduce production expr -> expr PLUS expr 
+-- On COLON reduce production expr -> expr PLUS expr 
 
 State 12:
-stmt -> PRINT . expr [ EOF COLON ]
+expr -> expr DIV . expr [ TIMES PLUS MINUS EOF DIV COLON ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On expr shift to state 13
 -- On const shift to state 9
 
 State 13:
-expr -> expr . PLUS expr [ PLUS MINUS EOF COLON ]
-expr -> expr . MINUS expr [ PLUS MINUS EOF COLON ]
-stmt -> PRINT expr . [ EOF COLON ]
--- On PLUS shift to state 7
--- On MINUS shift to state 10
--- On EOF reduce production stmt -> PRINT expr 
--- On COLON reduce production stmt -> PRINT expr 
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr DIV expr . [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES reduce production expr -> expr DIV expr 
+-- On PLUS reduce production expr -> expr DIV expr 
+-- On MINUS reduce production expr -> expr DIV expr 
+-- On EOF reduce production expr -> expr DIV expr 
+-- On DIV reduce production expr -> expr DIV expr 
+-- On COLON reduce production expr -> expr DIV expr 
 
 State 14:
-pro -> stmts . EOF [ # ]
-stmts -> stmts . COLON stmt [ EOF COLON ]
--- On EOF shift to state 15
--- On COLON shift to state 16
-
-State 15:
-pro -> stmts EOF . [ # ]
--- On # reduce production pro -> stmts EOF 
-
-State 16:
-stmts -> stmts COLON . stmt [ EOF COLON ]
--- On SET shift to state 1
--- On PRINT shift to state 12
+expr -> expr MINUS . expr [ TIMES PLUS MINUS EOF DIV COLON ]
 -- On INT shift to state 4
 -- On ID shift to state 5
--- On stmt shift to state 17
--- On expr shift to state 18
+-- On expr shift to state 15
+-- On const shift to state 9
+
+State 15:
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr MINUS expr . [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+-- On TIMES shift to state 7
+-- On DIV shift to state 12
+-- On PLUS reduce production expr -> expr MINUS expr 
+-- On MINUS reduce production expr -> expr MINUS expr 
+-- On EOF reduce production expr -> expr MINUS expr 
+-- On COLON reduce production expr -> expr MINUS expr 
+
+State 16:
+stmt -> PRINT . expr [ EOF COLON ]
+-- On INT shift to state 4
+-- On ID shift to state 5
+-- On expr shift to state 17
 -- On const shift to state 9
 
 State 17:
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+stmt -> PRINT expr . [ EOF COLON ]
+-- On TIMES shift to state 7
+-- On PLUS shift to state 10
+-- On MINUS shift to state 14
+-- On DIV shift to state 12
+-- On EOF reduce production stmt -> PRINT expr 
+-- On COLON reduce production stmt -> PRINT expr 
+
+State 18:
+pro -> stmts . EOF [ # ]
+stmts -> stmts . COLON stmt [ EOF COLON ]
+-- On EOF shift to state 19
+-- On COLON shift to state 20
+
+State 19:
+pro -> stmts EOF . [ # ]
+-- On # reduce production pro -> stmts EOF 
+
+State 20:
+stmts -> stmts COLON . stmt [ EOF COLON ]
+-- On SET shift to state 1
+-- On PRINT shift to state 16
+-- On INT shift to state 4
+-- On ID shift to state 5
+-- On stmt shift to state 21
+-- On expr shift to state 22
+-- On const shift to state 9
+
+State 21:
 stmts -> stmts COLON stmt . [ EOF COLON ]
 -- On EOF reduce production stmts -> stmts COLON stmt 
 -- On COLON reduce production stmts -> stmts COLON stmt 
 
-State 18:
-expr -> expr . PLUS expr [ PLUS MINUS EOF COLON ]
-expr -> expr . MINUS expr [ PLUS MINUS EOF COLON ]
+State 22:
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
 stmt -> expr . [ EOF COLON ]
--- On PLUS shift to state 7
--- On MINUS shift to state 10
+-- On TIMES shift to state 7
+-- On PLUS shift to state 10
+-- On MINUS shift to state 14
+-- On DIV shift to state 12
 -- On EOF reduce production stmt -> expr 
 -- On COLON reduce production stmt -> expr 
 
-State 19:
+State 23:
 stmts -> stmt . [ EOF COLON ]
 -- On EOF reduce production stmts -> stmt 
 -- On COLON reduce production stmts -> stmt 
 
-State 20:
+State 24:
 pro' -> pro . [ # ]
 -- On # accept pro
 

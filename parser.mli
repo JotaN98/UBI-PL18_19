@@ -1,6 +1,7 @@
 exception Error
 
 type token = 
+  | TIMES
   | SET
   | PRINT
   | PLUS
@@ -9,6 +10,7 @@ type token =
   | ID of (string)
   | EQ
   | EOF
+  | DIV
   | COLON
 
 

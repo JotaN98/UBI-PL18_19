@@ -49,8 +49,22 @@ let rec compile_expr = function
     pop t1 ++
     sub t0 t1 oreg t0 ++
     push t0
-  (*|Binop (Mul, e1, e1) -> (*Multiplicação*)
-  |Binop (Div, e1, e1) -> (*Divisão*)*)
+  |Binop (Mul, e1, e2) -> (*Multiplicação*)
+    comment ("multiplying")++
+    compile_expr e1 ++
+    compile_expr e2 ++
+    pop t0 ++
+    pop t1 ++
+    mul t0 t0 oreg t1 ++
+    push t0
+  |Binop (Div, e1, e2) -> (*Divisão*)
+    comment ("dividing")++
+    compile_expr e1 ++
+    compile_expr e2 ++
+    pop t0 ++
+    pop t1 ++
+    div t0 t1 oreg t0 ++
+    push t0
 
 (* Compilação de uma instrução *)
 let compile_stmt = function
