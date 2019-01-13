@@ -7,8 +7,11 @@ type token =
   | PLUS
   | MINUS
   | INT of (int)
+  | ID of (string)
+  | EQ
   | EOF
   | DIV
+  | COLON
 
 
-val main: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.expr)
+val pro: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.pro)

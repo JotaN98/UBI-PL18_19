@@ -1,12 +1,10 @@
 CMO=lexer.cmo parser.cmo mips.cmo compile.cmo main.cmo
 GENERATED = lexer.ml parser.ml parser.mli
-BIN=arithc
+BIN=arith
 FLAGS=
 
 all: $(BIN)
-	./$(BIN) test.exp
-	gcc -g test.s
-	./a.out
+	./$(BIN) test.ar
 
 $(BIN):$(CMO)
 	ocamlc $(FLAGS) -o $(BIN) $(CMO)

@@ -1,13 +1,14 @@
 {
+  (*COnverte o ficheiro para tokens*)
+  open Lexing
   open Parser
 
-  let kwd_tbl = ["print", PRINT;](*
-   "if", IF; "then", THEN; "end", END; "else" ELSE
-    "while", WHILE; "repeat", REPEAT; "break", BREAK;
-    "stoprepeat", STOPREPEAT;]
+  exception ErrorLexing of string
+
+  let kwd_tbl = ["print", PRINT; "set", SET;]
 
   let id_or_kwd s = try List.assoc s kwd_tbl with _ -> ID s
-*)
+
   let newline lexbuf =
     let pos = lexbuf.lex_curr_p in
     lexbuf.lex_curr_p <-
@@ -20,27 +21,16 @@ let space = [' ' '\t']
 let letter = ['a' - 'z' 'A'-'Z']
 let ident = letter (letter | digit)*
 
-  (*
-  | ident as id { id_or_kwd id}
-  | float as f {FLOAT (float_of_string f)}
-  | '=' {EQ} 
-  | '!' {NOT} 
-  | '<' {MINOR}
-  | '>' {BIGGER}
-  | "==" {EQUALS}
-  | "<=" {EQMINOR}
-  | ">=" {EQBIGGER}
-  | "!=" {DIFFERENT}
-  | "&&" {AND}
-  | "||" {OR}*)
-
 rule token = parse 
-  | '\n'    { newline lexbuf; token lexbuf }
+  | '\n' { newline lexbuf; token lexbuf }
+  | ident as id { id_or_kwd id}
   | space+ { token lexbuf }
   | integer as i {INT (int_of_string i)}
-  | '+' {PLUS}
-  | '-' {MINUS}
-  | '*' {TIMES}
-  | '/' {DIV}
+  | "=" {EQ} 
+  | "+" {PLUS}
+  | "-" {MINUS}
+  | "*" {TIMES}
+  | "/" {DIV}
+  | "," {COLON}
   | eof {EOF} 
-  | _ as c  { raise (Lexing_error c) }
+  | _ as c {raise (let x = (Printf.sprintf "%c" c) in (ErrorLexing ("Unkown character " ^ x)))}
