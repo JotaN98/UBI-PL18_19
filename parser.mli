@@ -1,7 +1,6 @@
 exception Error
 
 type token = 
-  | TIMES
   | SET
   | PRINT
   | PLUS
@@ -10,7 +9,7 @@ type token =
   | ID of (string)
   | EQ
   | EOF
-  | DIV
+  | COLON
 
 
 val pro: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.pro)

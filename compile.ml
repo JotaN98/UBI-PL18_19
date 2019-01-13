@@ -21,17 +21,20 @@ let rec compile_expr = function
   begin
       match c with
       Int i -> 
+        comment ("storing int")++
         li t0 i ++
         push t0
       | Var v ->
       begin
         if Hashtbl.mem vars v then
+          comment ("storing var")++
           lw t0 alab v ++
           push t0
         else raise (ErrorCompiling ("Undefined variable '"^v^"'."))
       end
   end
   |Binop (Add, e1, e2) -> (*Adição*)
+    comment ("adding")++
     compile_expr e1 ++
     compile_expr e2 ++
     pop t0 ++
@@ -39,11 +42,12 @@ let rec compile_expr = function
     add t0 t0 oreg t1 ++
     push t0
   |Binop (Sub, e1, e2) -> (*Subtração*)
+    comment ("subtracting")++
     compile_expr e1 ++
     compile_expr e2 ++
     pop t0 ++
     pop t1 ++
-    sub t0 t0 oreg t1 ++
+    sub t0 t1 oreg t0 ++
     push t0
   (*|Binop (Mul, e1, e1) -> (*Multiplicação*)
   |Binop (Div, e1, e1) -> (*Divisão*)*)
@@ -51,23 +55,21 @@ let rec compile_expr = function
 (* Compilação de uma instrução *)
 let compile_stmt = function
   | Set (v, e) ->
-    if not (Hashtbl.mem vars v) then begin
-      Hashtbl.replace vars v ();
-      compile_expr e ++
-      pop t0 ++
-      move v t0
-    end
-    else begin
-     raise (ErrorCompiling ("Already defined variable '"^v^"'."));
-     nop
-    end
+    Hashtbl.replace vars v ();
+    comment ("setting") ++
+    compile_expr e ++
+    pop t0 ++
+    sw t0 alab v 
+  | Eval e ->
+    comment ("evaluating")++
+    compile_expr e
   | Print e ->
+    comment ("printing")++
     compile_expr e ++
     pop t0 ++
     move a0 t0 ++
     li v0 1 ++(*codigo de print_int*)
-    syscall
-
+    syscall 
 
 (* Compila o programa p e grava o código no ficheiro ofile *)
 let compile_program p ofile =

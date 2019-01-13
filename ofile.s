@@ -1,16 +1,20 @@
 .text
 main:
-	li $t0, 1
+#printing
+#subtracting
+#storing int
+	li $t0, 3
 	sub $sp, $sp, 4
 	sw $t0, 0($sp)
-	li $t0, 1
+#storing int
+	li $t0, 2
 	sub $sp, $sp, 4
 	sw $t0, 0($sp)
 	lw $t0, 0($sp)
 	add $sp, $sp, 4
 	lw $t1, 0($sp)
 	add $sp, $sp, 4
-	add $t0, $t0, $t1
+	sub $t0, $t1, $t0
 	sub $sp, $sp, 4
 	sw $t0, 0($sp)
 	lw $t0, 0($sp)

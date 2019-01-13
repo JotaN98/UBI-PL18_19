@@ -5,8 +5,8 @@ type cst =
 type binop = 
   Add 
   | Sub 
-  | Mul 
-  | Div
+  (*| Mul 
+  | Div*)
 
 type expr =
   Cst of cst

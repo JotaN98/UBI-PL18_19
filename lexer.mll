@@ -5,10 +5,7 @@
 
   exception ErrorLexing of string
 
-  let kwd_tbl = ["print", PRINT; "set", SET](*
-   "if", IF; "then", THEN; "end", END; "else" ELSE
-    "while", WHILE; "repeat", REPEAT; "break", BREAK;
-    "stoprepeat", STOPREPEAT;]*)
+  let kwd_tbl = ["print", PRINT; "set", SET;]
 
   let id_or_kwd s = try List.assoc s kwd_tbl with _ -> ID s
 
@@ -23,17 +20,9 @@ let digit = ['0' - '9']
 let space = [' ' '\t']
 let letter = ['a' - 'z' 'A'-'Z']
 let ident = letter (letter | digit)*
-(*
-  | float as f {FLOAT (float_of_string f)}
-  | '!' {NOT} 
-  | '<' {MINOR}
-  | '>' {BIGGER}
-  | "==" {EQUALS}
-  | "<=" {EQMINOR}
-  | ">=" {EQBIGGER}
-  | "!=" {DIFFERENT}
-  | "&&" {AND}
-  | "||" {OR}*)
+
+  (*| "*" {TIMES}
+  | "/" {DIV}*)
 
 rule token = parse 
   | '\n' { newline lexbuf; token lexbuf }
@@ -43,7 +32,6 @@ rule token = parse
   | "=" {EQ} 
   | "+" {PLUS}
   | "-" {MINUS}
-  | "*" {TIMES}
-  | "/" {DIV}
+  | "," {COLON}
   | eof {EOF} 
   | _ as c {raise (let x = (Printf.sprintf "%c" c) in (ErrorLexing ("Unkown character " ^ x)))}
