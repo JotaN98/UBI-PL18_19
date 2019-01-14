@@ -80,8 +80,10 @@ let compile_stmt = function
     pop t0 ++
     move a0 t0 ++
     li v0 1 ++(*codigo de print_int*)
-    syscall 
-
+    syscall ++
+    la a0 alab "newline" ++
+    li v0 4 ++
+    syscall
 (* Compila o programa p e grava o código no ficheiro ofile *)
 let compile_program p ofile =
   let code = List.map compile_stmt p in
