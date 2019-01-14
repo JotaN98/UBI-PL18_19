@@ -1,1 +1,1 @@
-set y=2, print y, set y=y-1, set x=3*4/2-1, print x, print x-y
+set var = 2, print 3*4, print var, set var=var-1
