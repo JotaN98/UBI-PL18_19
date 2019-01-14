@@ -19,7 +19,7 @@ type token =
   | EQ
   | EOF
   | DIV
-  | COLON
+  | COMMA
 
 and _menhir_env = {
   _menhir_lexer: Lexing.lexbuf -> token;
@@ -60,7 +60,7 @@ let rec _menhir_goto_stmts : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_st
     let (_menhir_stack : 'freshtv117 * _menhir_state * 'tv_stmts) = _menhir_stack in
     let (_tok : token) = _tok in
     ((match _tok with
-    | COLON ->
+    | COMMA ->
         let (_menhir_env : _menhir_env) = _menhir_env in
         let (_menhir_stack : 'freshtv103 * _menhir_state * 'tv_stmts) = Obj.magic _menhir_stack in
         ((let _tok = _menhir_discard _menhir_env in
@@ -259,7 +259,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_expr ->
             _menhir_run10 _menhir_env (Obj.magic _menhir_stack)
         | TIMES ->
             _menhir_run8 _menhir_env (Obj.magic _menhir_stack)
-        | COLON | EOF ->
+        | COMMA | EOF ->
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : (('freshtv45 * _menhir_state) * (
 # 6 "parser.mly"
@@ -316,7 +316,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_expr ->
             _menhir_run12 _menhir_env (Obj.magic _menhir_stack)
         | TIMES ->
             _menhir_run8 _menhir_env (Obj.magic _menhir_stack)
-        | COLON | EOF | MINUS | PLUS ->
+        | COMMA | EOF | MINUS | PLUS ->
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv57 * _menhir_state * 'tv_expr) * _menhir_state * 'tv_expr) = Obj.magic _menhir_stack in
             ((let ((_menhir_stack, _menhir_s, e1), _, e2) = _menhir_stack in
@@ -372,7 +372,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_expr ->
             _menhir_run12 _menhir_env (Obj.magic _menhir_stack)
         | TIMES ->
             _menhir_run8 _menhir_env (Obj.magic _menhir_stack)
-        | COLON | EOF | MINUS | PLUS ->
+        | COMMA | EOF | MINUS | PLUS ->
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv69 * _menhir_state * 'tv_expr) * _menhir_state * 'tv_expr) = Obj.magic _menhir_stack in
             ((let ((_menhir_stack, _menhir_s, e1), _, e2) = _menhir_stack in
@@ -413,7 +413,7 @@ and _menhir_goto_expr : _menhir_env -> 'ttv_tail -> _menhir_state -> 'tv_expr ->
             _menhir_run10 _menhir_env (Obj.magic _menhir_stack)
         | TIMES ->
             _menhir_run8 _menhir_env (Obj.magic _menhir_stack)
-        | COLON | EOF ->
+        | COMMA | EOF ->
             let (_menhir_env : _menhir_env) = _menhir_env in
             let (_menhir_stack : ('freshtv77 * _menhir_state) * _menhir_state * 'tv_expr) = Obj.magic _menhir_stack in
             ((let ((_menhir_stack, _menhir_s), _, e) = _menhir_stack in

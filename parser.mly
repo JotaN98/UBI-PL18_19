@@ -6,7 +6,7 @@
 %token <string> ID
 
 %token EOF
-%token COLON 
+%token COMMA 
 %token PLUS MINUS
 %token TIMES DIV 
 %token EQ
@@ -27,7 +27,7 @@ pro:
 
 stmts:
     s= stmt {[s]}
-    | s1= stmts COLON s2=stmt {s2::s1}
+    | s1= stmts COMMA s2=stmt {s2::s1}
     ;
 
 typ:

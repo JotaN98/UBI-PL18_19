@@ -189,7 +189,7 @@ let
 
   | 9 ->
 # 34 "lexer.mll"
-        (COLON)
+        (COMMA)
 # 194 "lexer.ml"
 
   | 10 ->

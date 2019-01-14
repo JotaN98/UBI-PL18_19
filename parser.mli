@@ -11,7 +11,7 @@ type token =
   | EQ
   | EOF
   | DIV
-  | COLON
+  | COMMA
 
 
 val pro: (Lexing.lexbuf -> token) -> Lexing.lexbuf -> (Ast.pro)

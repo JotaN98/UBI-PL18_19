@@ -7,185 +7,185 @@ pro' -> . pro [ # ]
 -- On pro shift to state 23
 
 State 1:
-stmt -> SET . ID EQ expr [ EOF COLON ]
+stmt -> SET . ID EQ expr [ EOF COMMA ]
 -- On ID shift to state 2
 
 State 2:
-stmt -> SET ID . EQ expr [ EOF COLON ]
+stmt -> SET ID . EQ expr [ EOF COMMA ]
 -- On EQ shift to state 3
 
 State 3:
-stmt -> SET ID EQ . expr [ EOF COLON ]
+stmt -> SET ID EQ . expr [ EOF COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
 -- On expr shift to state 7
 
 State 4:
-typ -> INT . [ TIMES PLUS MINUS EOF DIV COLON ]
+typ -> INT . [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES reduce production typ -> INT 
 -- On PLUS reduce production typ -> INT 
 -- On MINUS reduce production typ -> INT 
 -- On EOF reduce production typ -> INT 
 -- On DIV reduce production typ -> INT 
--- On COLON reduce production typ -> INT 
+-- On COMMA reduce production typ -> INT 
 
 State 5:
-typ -> ID . [ TIMES PLUS MINUS EOF DIV COLON ]
+typ -> ID . [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES reduce production typ -> ID 
 -- On PLUS reduce production typ -> ID 
 -- On MINUS reduce production typ -> ID 
 -- On EOF reduce production typ -> ID 
 -- On DIV reduce production typ -> ID 
--- On COLON reduce production typ -> ID 
+-- On COMMA reduce production typ -> ID 
 
 State 6:
-expr -> typ . [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> typ . [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES reduce production expr -> typ 
 -- On PLUS reduce production expr -> typ 
 -- On MINUS reduce production expr -> typ 
 -- On EOF reduce production expr -> typ 
 -- On DIV reduce production expr -> typ 
--- On COLON reduce production expr -> typ 
+-- On COMMA reduce production expr -> typ 
 
 State 7:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
-stmt -> SET ID EQ expr . [ EOF COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+stmt -> SET ID EQ expr . [ EOF COMMA ]
 -- On TIMES shift to state 8
 -- On PLUS shift to state 10
 -- On MINUS shift to state 14
 -- On DIV shift to state 12
 -- On EOF reduce production stmt -> SET ID EQ expr 
--- On COLON reduce production stmt -> SET ID EQ expr 
+-- On COMMA reduce production stmt -> SET ID EQ expr 
 
 State 8:
-expr -> expr TIMES . expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr TIMES . expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
 -- On expr shift to state 9
 
 State 9:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr TIMES expr . [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr TIMES expr . [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES reduce production expr -> expr TIMES expr 
 -- On PLUS reduce production expr -> expr TIMES expr 
 -- On MINUS reduce production expr -> expr TIMES expr 
 -- On EOF reduce production expr -> expr TIMES expr 
 -- On DIV reduce production expr -> expr TIMES expr 
--- On COLON reduce production expr -> expr TIMES expr 
+-- On COMMA reduce production expr -> expr TIMES expr 
 
 State 10:
-expr -> expr PLUS . expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr PLUS . expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
 -- On expr shift to state 11
 
 State 11:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr PLUS expr . [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr PLUS expr . [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES shift to state 8
 -- On DIV shift to state 12
 -- On PLUS reduce production expr -> expr PLUS expr 
 -- On MINUS reduce production expr -> expr PLUS expr 
 -- On EOF reduce production expr -> expr PLUS expr 
--- On COLON reduce production expr -> expr PLUS expr 
+-- On COMMA reduce production expr -> expr PLUS expr 
 
 State 12:
-expr -> expr DIV . expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr DIV . expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
 -- On expr shift to state 13
 
 State 13:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr DIV expr . [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr DIV expr . [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES reduce production expr -> expr DIV expr 
 -- On PLUS reduce production expr -> expr DIV expr 
 -- On MINUS reduce production expr -> expr DIV expr 
 -- On EOF reduce production expr -> expr DIV expr 
 -- On DIV reduce production expr -> expr DIV expr 
--- On COLON reduce production expr -> expr DIV expr 
+-- On COMMA reduce production expr -> expr DIV expr 
 
 State 14:
-expr -> expr MINUS . expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr MINUS . expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
 -- On expr shift to state 15
 
 State 15:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr MINUS expr . [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr MINUS expr . [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 -- On TIMES shift to state 8
 -- On DIV shift to state 12
 -- On PLUS reduce production expr -> expr MINUS expr 
 -- On MINUS reduce production expr -> expr MINUS expr 
 -- On EOF reduce production expr -> expr MINUS expr 
--- On COLON reduce production expr -> expr MINUS expr 
+-- On COMMA reduce production expr -> expr MINUS expr 
 
 State 16:
-stmt -> PRINT . expr [ EOF COLON ]
+stmt -> PRINT . expr [ EOF COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
 -- On expr shift to state 17
 
 State 17:
-expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COLON ]
-expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COLON ]
-stmt -> PRINT expr . [ EOF COLON ]
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+stmt -> PRINT expr . [ EOF COMMA ]
 -- On TIMES shift to state 8
 -- On PLUS shift to state 10
 -- On MINUS shift to state 14
 -- On DIV shift to state 12
 -- On EOF reduce production stmt -> PRINT expr 
--- On COLON reduce production stmt -> PRINT expr 
+-- On COMMA reduce production stmt -> PRINT expr 
 
 State 18:
 pro -> stmts . EOF [ # ]
-stmts -> stmts . COLON stmt [ EOF COLON ]
+stmts -> stmts . COMMA stmt [ EOF COMMA ]
 -- On EOF shift to state 19
--- On COLON shift to state 20
+-- On COMMA shift to state 20
 
 State 19:
 pro -> stmts EOF . [ # ]
 -- On # reduce production pro -> stmts EOF 
 
 State 20:
-stmts -> stmts COLON . stmt [ EOF COLON ]
+stmts -> stmts COMMA . stmt [ EOF COMMA ]
 -- On SET shift to state 1
 -- On PRINT shift to state 16
 -- On stmt shift to state 21
 
 State 21:
-stmts -> stmts COLON stmt . [ EOF COLON ]
--- On EOF reduce production stmts -> stmts COLON stmt 
--- On COLON reduce production stmts -> stmts COLON stmt 
+stmts -> stmts COMMA stmt . [ EOF COMMA ]
+-- On EOF reduce production stmts -> stmts COMMA stmt 
+-- On COMMA reduce production stmts -> stmts COMMA stmt 
 
 State 22:
-stmts -> stmt . [ EOF COLON ]
+stmts -> stmt . [ EOF COMMA ]
 -- On EOF reduce production stmts -> stmt 
--- On COLON reduce production stmts -> stmt 
+-- On COMMA reduce production stmts -> stmt 
 
 State 23:
 pro' -> pro . [ # ]

@@ -31,6 +31,6 @@ rule token = parse
   | "-" {MINUS}
   | "*" {TIMES}
   | "/" {DIV}
-  | "," {COLON}
+  | "," {COMMA}
   | eof {EOF} 
   | _ as c {raise (let x = (Printf.sprintf "%c" c) in (ErrorLexing ("Unkown character " ^ x)))}
