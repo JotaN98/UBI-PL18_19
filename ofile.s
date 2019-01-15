@@ -46,7 +46,7 @@ main:
 	la $a0, newline
 	li $v0, 4
 	syscall
-#setting
+#redefining
 #subtracting
 #storing var
 	lw $t0, var
