@@ -9,9 +9,9 @@
 %token COMMA 
 %token PLUS MINUS
 %token TIMES DIV 
-%token EQ
 
-%token SET
+%token SET AS
+%token CHANGE TO
 %token PRINT
 
 %left PLUS MINUS
@@ -37,7 +37,8 @@ typ:
     ;
 
 stmt:
-    SET id = ID EQ e = expr { Set (id, e)}
+    SET id = ID AS e = expr { Set (id, e)}
+   | CHANGE id = ID TO e = expr { Change(id, e)}
    | PRINT e = expr { Print e}
    ;
 

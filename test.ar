@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+set var as 2, print 3*4, print var, change var to var-1
+=======
 print 3*4,
 print var,
 set var=var-1
+>>>>>>> master

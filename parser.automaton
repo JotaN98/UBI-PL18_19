@@ -2,21 +2,28 @@ State 0:
 pro' -> . pro [ # ]
 -- On SET shift to state 1
 -- On PRINT shift to state 16
+<<<<<<< HEAD
+-- On CHANGE shift to state 18
+-- On stmts shift to state 22
+-- On stmt shift to state 26
+-- On pro shift to state 27
+=======
 -- On EOF shift to state 18
 -- On stmts shift to state 19
 -- On stmt shift to state 23
 -- On pro shift to state 24
+>>>>>>> master
 
 State 1:
-stmt -> SET . ID EQ expr [ EOF COMMA ]
+stmt -> SET . ID AS expr [ EOF COMMA ]
 -- On ID shift to state 2
 
 State 2:
-stmt -> SET ID . EQ expr [ EOF COMMA ]
--- On EQ shift to state 3
+stmt -> SET ID . AS expr [ EOF COMMA ]
+-- On AS shift to state 3
 
 State 3:
-stmt -> SET ID EQ . expr [ EOF COMMA ]
+stmt -> SET ID AS . expr [ EOF COMMA ]
 -- On INT shift to state 4
 -- On ID shift to state 5
 -- On typ shift to state 6
@@ -54,13 +61,13 @@ expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
 expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
-stmt -> SET ID EQ expr . [ EOF COMMA ]
+stmt -> SET ID AS expr . [ EOF COMMA ]
 -- On TIMES shift to state 8
 -- On PLUS shift to state 10
 -- On MINUS shift to state 14
 -- On DIV shift to state 12
--- On EOF reduce production stmt -> SET ID EQ expr 
--- On COMMA reduce production stmt -> SET ID EQ expr 
+-- On EOF reduce production stmt -> SET ID AS expr 
+-- On COMMA reduce production stmt -> SET ID AS expr 
 
 State 8:
 expr -> expr TIMES . expr [ TIMES PLUS MINUS EOF DIV COMMA ]
@@ -163,6 +170,53 @@ stmt -> PRINT expr . [ EOF COMMA ]
 -- On COMMA reduce production stmt -> PRINT expr 
 
 State 18:
+<<<<<<< HEAD
+stmt -> CHANGE . ID TO expr [ EOF COMMA ]
+-- On ID shift to state 19
+
+State 19:
+stmt -> CHANGE ID . TO expr [ EOF COMMA ]
+-- On TO shift to state 20
+
+State 20:
+stmt -> CHANGE ID TO . expr [ EOF COMMA ]
+-- On INT shift to state 4
+-- On ID shift to state 5
+-- On typ shift to state 6
+-- On expr shift to state 21
+
+State 21:
+expr -> expr . PLUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . MINUS expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . TIMES expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+expr -> expr . DIV expr [ TIMES PLUS MINUS EOF DIV COMMA ]
+stmt -> CHANGE ID TO expr . [ EOF COMMA ]
+-- On TIMES shift to state 8
+-- On PLUS shift to state 10
+-- On MINUS shift to state 14
+-- On DIV shift to state 12
+-- On EOF reduce production stmt -> CHANGE ID TO expr 
+-- On COMMA reduce production stmt -> CHANGE ID TO expr 
+
+State 22:
+pro -> stmts . EOF [ # ]
+stmts -> stmts . COMMA stmt [ EOF COMMA ]
+-- On EOF shift to state 23
+-- On COMMA shift to state 24
+
+State 23:
+pro -> stmts EOF . [ # ]
+-- On # reduce production pro -> stmts EOF 
+
+State 24:
+stmts -> stmts COMMA . stmt [ EOF COMMA ]
+-- On SET shift to state 1
+-- On PRINT shift to state 16
+-- On CHANGE shift to state 18
+-- On stmt shift to state 25
+
+State 25:
+=======
 pro -> EOF . [ # ]
 -- On # reduce production pro -> EOF 
 
@@ -183,16 +237,25 @@ stmts -> stmts COMMA . stmt [ EOF COMMA ]
 -- On stmt shift to state 22
 
 State 22:
+>>>>>>> master
 stmts -> stmts COMMA stmt . [ EOF COMMA ]
 -- On EOF reduce production stmts -> stmts COMMA stmt 
 -- On COMMA reduce production stmts -> stmts COMMA stmt 
 
+<<<<<<< HEAD
+State 26:
+=======
 State 23:
+>>>>>>> master
 stmts -> stmt . [ EOF COMMA ]
 -- On EOF reduce production stmts -> stmt 
 -- On COMMA reduce production stmts -> stmt 
 
+<<<<<<< HEAD
+State 27:
+=======
 State 24:
+>>>>>>> master
 pro' -> pro . [ # ]
 -- On # accept pro
 

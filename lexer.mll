@@ -5,7 +5,7 @@
 
   exception ErrorLexing of string
 
-  let kwd_tbl = ["print", PRINT; "set", SET;]
+  let kwd_tbl = ["print", PRINT; "set", SET; "as", AS; "change", CHANGE; "to", TO;]
 
   let id_or_kwd s = try List.assoc s kwd_tbl with _ -> ID s
 
@@ -27,7 +27,6 @@ rule token = parse
   | ident as id { id_or_kwd id}
   | space+ { token lexbuf }
   | integer as i {INT (int_of_string i)}
-  | "=" {EQ} 
   | "+" {PLUS}
   | "-" {MINUS}
   | "*" {TIMES}
