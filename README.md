@@ -2,7 +2,7 @@
 ## Language: Ocaml
 UBI's language processing discipline final project
 
-##Gramatic:
+Gramatic:
 Defining a variable: 
 Printing: print X
 Redifining a variable:
