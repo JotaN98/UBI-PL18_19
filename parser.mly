@@ -23,6 +23,7 @@
 %%
 pro:
     s = stmts EOF { List.rev s }
+    | EOF { [] }
     ;
 
 stmts:
