@@ -14,6 +14,7 @@ type expr =
  
  type stmt =  
   Set of string * expr
+  | Change of string * expr
   | Print of expr
 
 and pro = stmt list

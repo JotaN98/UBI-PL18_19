@@ -30,7 +30,7 @@ let rec compile_expr = function
           comment ("storing var")++
           lw t0 alab v ++
           push t0
-        else raise (ErrorCompiling ("Undefined variable '"^v^"'."))
+        else raise (ErrorCompiling ("Variable undefined '"^v^"'."))
       end
   end
   |Binop (Add, e1, e2) -> (*Adição*)
@@ -68,12 +68,24 @@ let rec compile_expr = function
 
 (* Compilação de uma instrução *)
 let compile_stmt = function
-  | Set (v, e) -> (* Definir e redefinir uma variavél*)
-    Hashtbl.replace vars v ();
-    comment ("setting") ++
-    compile_expr e ++
-    pop t0 ++
-    sw t0 alab v
+  | Set (v, e) -> (* Definir uma variavél*)
+  begin
+    if not (Hashtbl.mem vars v) then begin
+      Hashtbl.replace vars v ();
+      comment ("setting var") ++
+      compile_expr e ++
+      pop t0 ++
+      sw t0 alab v
+    end
+    else begin raise (ErrorCompiling("Variable already defined '"^v^"'.")); nop end 
+  end
+  | Change(v, e)->(*Redefinir uma variável*)
+    if Hashtbl.mem vars v then
+      comment ("changing var") ++
+      compile_expr e ++
+      pop t0 ++
+      sw t0 alab v
+    else raise (ErrorCompiling ("Variable undefined '"^v^"'."))
   | Print e -> (*Imprimir*)
     comment ("printing")++
     compile_expr e ++
