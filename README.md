@@ -2,8 +2,8 @@
 ## Language: Ocaml
 UBI's language processing discipline final project
 
-Gramatic:
-Defining a variable: 
-Printing: print X
-Redifining a variable:
+Gramatic:  
+Defining a variable:   
+Printing: print X  
+Redifining a variable:  
 Possible operations: +, -, *, /
