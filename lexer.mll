@@ -23,6 +23,7 @@ let ident = letter (letter | digit)*
 
 rule token = parse 
   | '\n' { newline lexbuf; token lexbuf }
+  | '\r' { token lexbuf }
   | ident as id { id_or_kwd id}
   | space+ { token lexbuf }
   | integer as i {INT (int_of_string i)}
