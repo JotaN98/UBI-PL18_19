@@ -57,7 +57,11 @@ main:
 	la $a0, newline
 	li $v0, 4
 	syscall
+<<<<<<< HEAD
 #changing var
+=======
+#redefining
+>>>>>>> 90499690da7a70b67fc4195cfab689aee5a0dd4f
 #subtracting
 #storing var
 	lw $t0, var
